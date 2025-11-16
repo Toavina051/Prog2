@@ -1,0 +1,1 @@
+SELECT Leave.id, Leave.start_date, Leave._end_date, Employee.first_name, Employee.last_name, Team.name FROM Leave Join Employee ON Leave.employee_id = e.id LEFT JOIN Team ON Employee.team_id = Team.id;

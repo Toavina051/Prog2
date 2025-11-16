@@ -1,1 +1,0 @@
-SELECT contract_type, COUNT(*) AS sum_employee FROM Employee GROUP BY contract_type;

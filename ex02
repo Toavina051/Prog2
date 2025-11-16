@@ -1,1 +1,0 @@
-SELECT Employee.id, Employee.first_name, Employee.last_name FROM Employee LEFT JOIN Leave on Employee.id = Leave.employee_id WHERE Leave.id IS NULL; 

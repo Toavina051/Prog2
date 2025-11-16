@@ -1,1 +1,0 @@
-SELECT id, first_name, last_name FROM Employee WHERE team_id IS NULL;

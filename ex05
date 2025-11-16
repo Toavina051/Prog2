@@ -1,1 +1,0 @@
-SELECT COUNT(*) AS employee_leave FROM Leave WHERE CURRENT_DATE <= start_date and CURRENT_DATE <= end_date;

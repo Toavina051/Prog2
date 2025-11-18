@@ -1,4 +1,4 @@
-public class Tutor extends Person {
+public class Tutor extends User {
     private String descriptionLien;
 
     public Tutor(int id, String nom, String prenom, String dateNaissance,

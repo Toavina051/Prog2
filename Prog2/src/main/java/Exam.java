@@ -1,16 +1,21 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Exam {
     private int id;
     private String titre;
-    private Cours course;
+    private Course course;
     private String dateHeure;
     private int coefficient;
+    private List<Grade> grades;
 
-    public Exam(int id, String titre, Cours course, String dateHeure, int coefficient) {
+    public Exam(int id, String titre, Course course, String dateHeure, int coefficient, List<Grade> grades) {
         this.id = id;
         this.titre = titre;
         this.course = course;
         this.dateHeure = dateHeure;
         this.coefficient = coefficient;
+        this.grades = new ArrayList<>();
     }
 
     public int getId() {
@@ -21,7 +26,7 @@ public class Exam {
         return titre;
     }
 
-    public Cours getCourse() {
+    public Course getCourse() {
         return course;
     }
 
@@ -31,6 +36,10 @@ public class Exam {
 
     public int getCoefficient() {
         return coefficient;
+    }
+
+    public List<Grade> getGrades() {
+        return grades;
     }
 
     @Override

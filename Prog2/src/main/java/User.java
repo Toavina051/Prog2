@@ -1,4 +1,4 @@
-public class Person {
+public class User {
     private final int id;
     private final String nom;
     private final String prenom;
@@ -6,8 +6,8 @@ public class Person {
     private final String email;
     private final String telephone;
 
-    public Person(int id, String nom, String prenom, String dateNaissance,
-                  String email, String telephone) {
+    public User(int id, String nom, String prenom, String dateNaissance,
+                String email, String telephone) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;

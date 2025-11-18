@@ -1,12 +1,12 @@
 import java.time.Instant;
 
-public class GradeChange {
+public class GradeHistory {
     private double oldValue;
     private double newValue;
     private String reason;
     private Instant timestamp;
 
-    public GradeChange(double oldValue, double newValue, String reason, Instant timestamp) {
+    public GradeHistory(double oldValue, double newValue, String reason, Instant timestamp) {
         this.oldValue = oldValue;
         this.newValue = newValue;
         this.reason = reason;

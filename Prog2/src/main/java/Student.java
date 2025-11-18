@@ -1,4 +1,4 @@
-public class Student extends Person {
+public class Student extends User {
     private String groupe;
     private Tutor tuteur;
 

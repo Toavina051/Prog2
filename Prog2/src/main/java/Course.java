@@ -1,14 +1,19 @@
-public class Cours {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Course {
     private int id;
     private String label;
     private int credits;
     private Teacher enseignant;
+    private List<Exam> exams;
 
-    public Cours(int id, String label, int credits, Teacher enseignant) {
+    public Course(int id, String label, int credits, Teacher enseignant, List<Exam> exams) {
         this.id = id;
         this.label = label;
         this.credits = credits;
         this.enseignant = enseignant;
+        this.exams = new ArrayList<>();
     }
 
     public int getId() {
@@ -27,6 +32,9 @@ public class Cours {
         return enseignant;
     }
 
+    public List<Exam> getExams() {
+        return exams;
+    }
     @Override
     public String toString() {
         return "Cours{" +

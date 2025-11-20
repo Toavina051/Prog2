@@ -1,67 +1,64 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AllMethodTest {
+public class AllMethodTest {
 
-    private Student student;
-    private Course course;
-    private Exam exam1;
-    private Exam exam2;
-    private AllMethod all;
+    @Test
+    public void testGetExamGrade_WithHistory() throws Exception {
+        Tutor tutor = new Tutor(1, "T", "U", "2000", "x", "y", "desc");
+        Student student = new Student(1, "Test", "User", "2000", "x", "y", "G1", tutor);
 
-    private Instant t0;
-    private Instant t1;
-    private Instant t2;
+        Grade grade = new Grade(student, 10);
 
-    @BeforeEach
-    void setup() {
-        t0 = Instant.parse("2024-01-01T00:00:00Z");
-        t1 = Instant.parse("2024-01-02T00:00:00Z");
-        t2 = Instant.parse("2024-01-03T00:00:00Z");
-        student = new Student(1, "Doe", "John", "2000-01-01",
-                "john@test.com", "0000", "A1", null);
-        course = new Course(10, "Math", 5, null, List.of());
-        exam1 = new Exam(100, "DS1", course, "2024-01-10", 2, List.of());
-        exam2 = new Exam(101, "DS2", course, "2024-01-12", 3, List.of());
-        course.getExams().add(exam1);
-        course.getExams().add(exam2);
-        Grade g1 = new Grade(student, 10.0);
-        Grade g2 = new Grade(student, 8.0);
-        g1.getHistory().add(new GradeHistory(10.0, 12.0, "Correction", t1));
-        g1.getHistory().add(new GradeHistory(12.0, 14.0, "Re-evaluation", t2));
-        g2.getHistory().add(new GradeHistory(8.0, 9.0, "Correction", t2));
+        Instant before = Instant.now();
+        Thread.sleep(50);
+        grade.changeValue(15, "Correction");
+        Instant after = Instant.now();
+
+        List<Grade> grades = new ArrayList<>();
+        grades.add(grade);
+
+        Exam exam = new Exam(1, "Exam1", null, "2025", 2, grades);
+        exam.getGrades().add(grade);
+
+        AllMethod all = new AllMethod();
+
+        double valBefore = all.getExamGrade(exam, student, before);
+        double valAfter = all.getExamGrade(exam, student, after);
+
+        assertEquals(10, valBefore);
+        assertEquals(15, valAfter);
+    }
+
+    @Test
+    public void testGetCourseGrade() {
+        Tutor tutor = new Tutor(1, "T", "U", "2000", "x", "y", "desc");
+        Student student = new Student(1, "Test", "User", "2000", "x", "y", "G1", tutor);
+
+        Grade g1 = new Grade(student, 10);
+        Grade g2 = new Grade(student, 20);
+
+        Exam exam1 = new Exam(1, "Exam1", null, "2025", 2, new ArrayList<>());
+        Exam exam2 = new Exam(2, "Exam2", null, "2025", 3, new ArrayList<>());
+
         exam1.getGrades().add(g1);
         exam2.getGrades().add(g2);
 
-        all = new AllMethod();
-    }
+        List<Exam> exams = new ArrayList<>();
+        exams.add(exam1);
+        exams.add(exam2);
 
-    @Test
-    void testGetExamGrade_beforeAnyChange() {
-        double grade = all.getExamGrade(exam1, t0);
-        assertEquals(10.0, grade);
-    }
+        Course course = new Course(1, "Prog2", 6, null, exams);
+        course.getExams().addAll(exams);
 
-    @Test
-    void testGetExamGrade_afterFirstChange() {
-        double grade = all.getExamGrade(exam1, t1);
-        assertEquals(12.0, grade);
-    }
+        AllMethod all = new AllMethod();
 
-    @Test
-    void testGetExamGrade_afterSecondChange() {
-        double grade = all.getExamGrade(exam1, t2);
-        assertEquals(14.0, grade);
-    }
+        double result = all.getCourseGrade(course, student, Instant.now());
 
-    @Test
-    void testGetCourseGrade() {
-        double result = all.getCourseGrade(course, t2);
-        assertEquals(11.0, result);
+        assertEquals(16.0, result);
     }
 }

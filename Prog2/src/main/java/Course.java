@@ -13,7 +13,7 @@ public class Course {
         this.label = label;
         this.credits = credits;
         this.enseignant = enseignant;
-        this.exams = new ArrayList<>();
+        this.exams = exams != null ? exams : new ArrayList<>();
     }
 
     public int getId() {
